@@ -1,4 +1,4 @@
-/*global AppLeftNav:true*/
+/* global AppLeftNav:true,NavButton:true */
 
 // import React from 'react';
 // import LeftNav from 'material-ui/lib/left-nav';
@@ -8,13 +8,16 @@
 // https://github.com/callemall/material-ui/blob/master/docs/src/app/components/LeftNav/ExampleSimple.jsx
 
 const { LeftNav, RaisedButton } = mui;
-const { MenuItem } = mui.Menus;
 const { NavigationMoreVert, NavigationMenu } = mui.SvgIcons;
 const Styles = mui.Styles;
 const Colors = Styles.Colors;
 
-
 AppLeftNav = React.createClass({
+
+  navItems: [
+    { label: 'top', route: '/' },
+    { label: 'table', route: '/table' }
+  ],
 
   getInitialState: function() {
     return {
@@ -22,14 +25,21 @@ AppLeftNav = React.createClass({
     };
   },
 
+  closeMenu() {
+    this.setState({open: false});
+  },
+
   handleToggle() {
     this.setState({open: !this.state.open});
     console.log('LeftNav.handleToggle > ', this.state.open);
   },
 
-  handleTap(evt, params, opts) {
-    console.log('handleClose', evt, params, opts);
-    console.log('handleClose.state', this.state);
+  getNavButtons() {
+    var that = this;
+    // FIXME STFU with this unique key warning
+    return this.navItems.map( item => {
+      return <NavButton label={item.label} route={item.route} key={item.label} menuContainer={that} />;
+    });
   },
 
   render() {
@@ -40,8 +50,7 @@ AppLeftNav = React.createClass({
         onChange={this.navigate}
         onRequestChange={open => this.setState({open})}
       >
-        <MenuItem onTouchTap={this.handleTap} >first</MenuItem>
-        <MenuItem>second</MenuItem>
+        {this.getNavButtons()}
       </LeftNav>
     );
   }

@@ -1,3 +1,5 @@
+/* global moment */
+
 const { RefreshIndicator, DropDownMenu } = mui;
 
 LogTableComponent = React.createClass({
@@ -11,7 +13,7 @@ LogTableComponent = React.createClass({
       sender: 'sender',
       username: 'username',
       ready: true
-    }
+    };
 
     return data;
   },
@@ -22,38 +24,53 @@ LogTableComponent = React.createClass({
        { payload: '2', text: 'Every Night' },
        { payload: '3', text: 'Weeknights' },
        { payload: '4', text: 'Weekends' },
-       { payload: '5', text: 'Weekly' },
+       { payload: '5', text: 'Weekly' }
     ];
     return (
       <DropDownMenu menuItems={menuItems} />
-    )
+    );
+  },
+
+  getData() {
+    // var now = new Date();
+    // now = moment().format(now, 'YYYY/MM/DD');
+    var now = moment().format('YYYY/MM/DD');
+    var data = [
+      { name: 'alpha', active: true, menu: 'right', createdAt: now, next: 'two' },
+      { name: 'bravo', active: false, menu: 'wrong', createdAt: now, next: 'three'  },
+      { name: 'charlie', active: true, menu: 'right', createdAt: now, next: 'four'  },
+      { name: 'delta', active: false, menu: 'right', createdAt: now, next: 'one'  }
+    ];
+    console.log('data', data);
+    return data;
   },
 
   initTable() {
+    var hotData = this.getData();
     var container = document.getElementById('hot');
-
     this.hot = new Handsontable(container, {
-        data: this.data,
+        data: hotData,
         columns: [
-          {data: 'sender'},
-          {data: 'username'},
+          {data: 'name'},
           {data: 'active', type: 'checkbox'},
-          {data: 'helpFlag', type: 'checkbox'},
-          {data: 'topic'},
-          {data: 'trigger'},
-          {data: 'rawtext'},
-          {data: 'goto',
+          {data: 'menu',
                 type: 'dropdown',
                 source: ['right', 'wrong', 'hint', 'answer']
           },
-          {data: 'who',
-                type: 'dropdown',
-                source: ['hint', 'hotelman', 'roommate', 'teacher1']
+          {data: 'next',
+                type: 'autocomplete',
+                source: ['one', 'two', 'three', 'four']
           },
-          {data: 'createdAt'}
+          {
+            // https://github.com/dbushell/Pikaday#configuration
+            data: 'createdAt',
+            type: 'date',
+            dateFormat: 'YYYY/MM/DD',
+            correctFormat: true
+          }
         ],
-        colHeaders: ['sender',  'username', 'active', 'helpFlag',   'topic', 'trigger', 'reply', 'goto', 'who', 'createdAt'],
-        colWidths: [  60,       60,         30,       30,           80,       240,      240,        100,    100,        100],
+        colHeaders: ['name',  'active', 'menu',   'next',   'date'],
+        colWidths: [  200,    60,       100,       100,     250],
         manualColumnResize: true,
         currentRowClassName: 'edit-table-row',
         currentColClassName: 'edit-table-col',
@@ -65,9 +82,8 @@ LogTableComponent = React.createClass({
         sortIndicator: true,
 
         afterChange: function(change, source) {
-          console.log("afterChange");
+          console.log('afterChange');
         }
-
     });
 
   },

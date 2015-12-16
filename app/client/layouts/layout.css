@@ -1,0 +1,47 @@
+header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 999;
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  padding: 5px;
+}
+
+header a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 5px;
+  background-color: #222;
+}
+
+header a:hover {
+  background-color: #444;
+}
+
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1rem;
+}
+
+main {
+  /*border: 1px solid red;*/
+}
+
+body {
+  font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+.text-l {
+  font-size: 2rem;
+}

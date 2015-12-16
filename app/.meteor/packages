@@ -26,7 +26,7 @@ jsx
 react-meteor-data
 react
 
-
+# routing
 kadira:flow-router
 kadira:react-layout
 static-html
@@ -36,3 +36,5 @@ static-html
 dcsan:mui
 
 awsp:handsontable
+
+momentjs:moment
