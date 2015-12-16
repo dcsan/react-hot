@@ -33,6 +33,8 @@ static-html
 
 
 # https://github.com/markoshust/meteor-material-ui/
-markoshust:material-ui
+# markoshust:material-ui
+# dcsan:material-ui@0.2.4
+dcsan:react-material-ui-latest
 
 awsp:handsontable
