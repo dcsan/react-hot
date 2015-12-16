@@ -1,7 +1,10 @@
+var layout = MainLayout;
+
+
 FlowRouter.route('/', {
   action: function(params, queryParams) {
     ReactLayout.render(
-      MainLayout, {
+      layout, {
         content: <TopComponent/>
       }
     );
@@ -12,7 +15,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/table', {
   action: function(params, queryParams) {
     ReactLayout.render(
-      MainLayout, {
+      layout, {
         content: <LogTableComponent/>
       }
     );

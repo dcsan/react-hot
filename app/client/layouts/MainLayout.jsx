@@ -1,6 +1,6 @@
 const { AppBar, IconButton, IconMenu, LeftNav } = mui;
 const { MenuItem } = mui.Menus;
-const { NavigationMoreVert } = mui.SvgIcons;
+const { NavigationMoreVert, NavigationMenu } = mui.SvgIcons;
 const Styles = mui.Styles;
 const Colors = Styles.Colors;
 
@@ -10,10 +10,16 @@ MainLayout = React.createClass({
     content: React.PropTypes.object
   },
 
+  getInitialState: function() {
+    return {
+      open: false
+    };
+  },
+
   getMenuItems() {
     return [
       { route: '/', text: 'Home' },
-      { route: '/table', text: 'Table' },
+      { route: '/table', text: 'Table' }
     ];
   },
 
@@ -22,14 +28,49 @@ MainLayout = React.createClass({
    FlowRouter.go(item.route);
   },
 
+  showLeftMenu() {
+    console.log('show left', this.refs.leftNav);
+    this.refs.leftNav.handleToggle();
+  },
+
   render() {
     return (
       <div className='app'>
-        <LeftNav
+
+        <AppLeftNav
           ref='leftNav'
-          docked={false}
-          onChange={this.navigate}
-          menuItems={this.getMenuItems()} />
+        />
+
+        <AppBar
+          title='Title'
+          onTouchTap={this.showLeftMenu}
+          iconElementRight={
+            <IconMenu
+              iconButtonElement={
+                <IconButton>
+                  <NavigationMoreVert />
+                </IconButton>
+              }
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+            >
+              <MenuItem primaryText='Refresh' />
+              <MenuItem primaryText='Help' />
+              <MenuItem primaryText='Sign out' />
+            </IconMenu>
+          }
+        />
+        <div>
+          {this.props.content}
+        </div>
+      </div>
+    );
+  },
+
+
+  Xrender() {
+    return (
+      <div className='app'>
         <AppBar
           title='Home'
           onLeftIconButtonTouchTap={()=>this.refs.leftNav.toggle()}
@@ -53,3 +94,12 @@ MainLayout = React.createClass({
   }
 
 });
+
+
+
+// <IconMenu
+//   iconButtonElement={
+//     <IconButton>
+//       <NavigationMenu />
+//     </IconButton>
+//   }
